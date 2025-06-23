@@ -3,631 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>旅ばな - 旅の計画・記録・共有アプリ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>旅ばな - プランへの招待</title>
     <style>
-        :root {
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'M PLUS Rounded 1c', sans-serif;
-            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
         }
         
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         
-        .slide-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #667eea;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
         }
         
-        .slide-in.active {
-            opacity: 1;
-            transform: translateY(0);
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 700;
         }
         
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
         
-        .feature-card {
+        .button-primary {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .button-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .button-secondary {
+            display: inline-block;
+            background: #f7f7f7;
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
         
-        .bounce {
-            animation: bounce 2s infinite;
+        .button-secondary:hover {
+            background: #e9e9e9;
         }
         
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {transform: scale(1);}
-            50% {transform: scale(1.05);}
-            100% {transform: scale(1);}
-        }
-        
-        .rotate-world {
-            animation: rotate 60s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from {transform: rotate(0deg);}
-            to {transform: rotate(360deg);}
-        }
-        
-        .pop {
-            animation: pop 0.5s;
-        }
-        
-        @keyframes pop {
-            0% {transform: scale(1);}
-            50% {transform: scale(1.3);}
-            100% {transform: scale(1);}
-        }
-        
-        .chat-bubble {
+        .divider {
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
             position: relative;
-            background: #f1f1f1;
-            border-radius: 20px;
-            padding: 10px 15px;
-            margin: 10px 0;
-            max-width: 80%;
         }
         
-        .chat-bubble::after {
+        .divider::before,
+        .divider::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 20px;
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-top-color: #f1f1f1;
-            border-bottom: 0;
-            margin-bottom: -10px;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
         }
         
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .divider::before {
+            left: 0;
+        }
+        
+        .divider::after {
+            right: 0;
+        }
+        
+        .app-stores {
+            margin-top: 30px;
+        }
+        
+        .store-button {
+            display: inline-block;
+            margin: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .store-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .store-button img {
+            height: 40px;
+        }
+        
+        .warning {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #f57c00;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .description {
+                font-size: 14px;
+            }
+            
+            .button-primary {
+                font-size: 16px;
+                padding: 14px 28px;
+            }
         }
     </style>
 </head>
-<body class="bg-white text-gray-800">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-md z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <i class="fas fa-map-marked-alt text-3xl mr-2" style="color: var(--primary);"></i>
-                <span class="text-2xl font-bold" style="color: var(--primary);">旅ばな</span>
-            </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#features" class="hover:text-primary transition">特長</a>
-                <a href="#functions" class="hover:text-primary transition">機能</a>
-                <a href="#community" class="hover:text-primary transition">コミュニティ</a>
-                <a href="#download" class="hover:text-primary transition">ダウンロード</a>
-            </div>
-            <button class="md:hidden">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center text-white pt-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="slide-in text-4xl md:text-6xl font-bold mb-6">＼旅の計画・記録をこの１本で！／</h1>
-            <p class="slide-in text-xl md:text-2xl mb-10">思い出を形に残して、みんなと共有しよう</p>
-            <button class="slide-in bg-primary hover:bg-opacity-90 text-white font-bold py-4 px-8 rounded-full text-lg bounce">
-                今すぐダウンロード
-            </button>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 slide-in">旅をもっと楽しく、簡単に</h2>
-            
-            <div class="grid md:grid-cols-3 gap-10">
-                <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg feature-card slide-in">
-                    <div class="text-center mb-6">
-                        <i class="fas fa-calendar-alt text-5xl mb-4" style="color: var(--primary);"></i>
-                        <h3 class="text-xl font-bold mb-2">スマート旅程作成</h3>
-                        <p class="text-gray-600">行きたい場所を選ぶだけで、最適なスケジュールを自動生成。移動時間も考慮します。</p>
-                    </div>
-                </div>
-                
-                <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg feature-card slide-in" style="transition-delay: 0.2s;">
-                    <div class="text-center mb-6">
-                        <i class="fas fa-map-marked-alt text-5xl mb-4" style="color: var(--secondary);"></i>
-                        <h3 class="text-xl font-bold mb-2">リアルタイムナビ</h3>
-                        <p class="text-gray-600">地図と連動したナビゲーションで、迷わず目的地に到着。オフラインでも利用可能。</p>
-                    </div>
-                </div>
-                
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg feature-card slide-in" style="transition-delay: 0.4s;">
-                    <div class="text-center mb-6">
-                        <i class="fas fa-users text-5xl mb-4" style="color: var(--primary);"></i>
-                        <h3 class="text-xl font-bold mb-2">グループ共有</h3>
-                        <p class="text-gray-600">旅仲間とリアルタイムで旅程を共有。変更も即時反映され、スムーズな調整が可能。</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-16 relative h-80 bg-white rounded-xl overflow-hidden shadow-lg slide-in">
-                <img src="https://images.unsplash.com/photo-1500835556837-99ac94a54352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="旅行計画イメージ" 
-                     class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                    <button class="bg-primary text-white font-bold py-3 px-6 rounded-full pulse">
-                        <i class="fas fa-play mr-2"></i> 使い方を見る
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Functions Section -->
-    <section id="functions" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 slide-in">旅ばなの便利な機能</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <!-- Function 1 -->
-                <div class="bg-gray-50 p-6 rounded-xl feature-card slide-in">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
-                            <i class="fas fa-calendar-day text-2xl" style="color: var(--primary);"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">日別旅程作成</h3>
-                    </div>
-                    <p class="text-gray-600">日ごとに訪れるスポットを簡単に計画。移動時間や滞在時間も考慮したスケジュールが作成できます。</p>
-                </div>
-                
-                <!-- Function 2 -->
-                <div class="bg-gray-50 p-6 rounded-xl feature-card slide-in" style="transition-delay: 0.2s;">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
-                            <i class="fas fa-camera text-2xl" style="color: var(--secondary);"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">スポットに写真・メモ追加</h3>
-                    </div>
-                    <p class="text-gray-600">訪れた場所に写真やメモを追加。後で見返すときに当時の感動を鮮明に思い出せます。</p>
-                </div>
-                
-                <!-- Function 3 -->
-                <div class="bg-gray-50 p-6 rounded-xl feature-card slide-in" style="transition-delay: 0.4s;">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4">
-                            <i class="fas fa-robot text-2xl" style="color: var(--primary);"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">AI自動プラン</h3>
-                    </div>
-                    <p class="text-gray-600">行きたい場所やテーマを入力するだけで、最適な旅程をAIが自動提案（近日公開予定）。</p>
-                </div>
-            </div>
-            
-            <div class="bg-gradient-to-r from-primary to-secondary p-1 rounded-xl slide-in">
-                <div class="bg-white p-8 rounded-lg">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 mb-8 md:mb-0">
-                            <h3 class="text-2xl font-bold mb-4">旅の思い出を美しいアルバムに</h3>
-                            <p class="text-gray-600 mb-6">訪れた場所、撮った写真、感じたこと...すべての思い出を1冊の美しいデジタルアルバムにまとめられます。印刷してリアルなアルバムにすることも可能です。</p>
-                            <button class="bg-primary text-white font-bold py-2 px-6 rounded-full">
-                                アルバムの例を見る <i class="fas fa-arrow-right ml-2"></i>
-                            </button>
-                        </div>
-                        <div class="md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                                 alt="旅行アルバムイメージ" 
-                                 class="w-full h-auto rounded-lg shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Community Section -->
-    <section id="community" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 slide-in">みんなの旅プランを発見</h2>
-            
-            <div class="mb-12 overflow-hidden slide-in">
-                <div class="flex space-x-6 pb-6 overflow-x-auto scrollbar-hide">
-                    <!-- Plan 1 -->
-                    <div class="flex-shrink-0 w-64 bg-white rounded-xl shadow-md overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2053&q=80" 
-                             alt="京都旅行" 
-                             class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">京都の古都巡り</h3>
-                            <p class="text-sm text-gray-600 mb-3">3日間で巡る京都の名所。紅葉シーズンに最適。</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" 
-                                         alt="ユーザーアイコン" 
-                                         class="w-8 h-8 rounded-full mr-2">
-                                    <span class="text-sm">ゆきこ</span>
-                                </div>
-                                <button class="text-primary hover:text-red-500 transition" onclick="likePlan(this)">
-                                    <i class="far fa-heart text-xl"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Plan 2 -->
-                    <div class="flex-shrink-0 w-64 bg-white rounded-xl shadow-md overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1498855926480-d98e83099315?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="沖縄旅行" 
-                             class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">沖縄リゾート満喫</h3>
-                            <p class="text-sm text-gray-600 mb-3">4日間で楽しむ沖縄の海とグルメ。</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" 
-                                         alt="ユーザーアイコン" 
-                                         class="w-8 h-8 rounded-full mr-2">
-                                    <span class="text-sm">たけし</span>
-                                </div>
-                                <button class="text-primary hover:text-red-500 transition" onclick="likePlan(this)">
-                                    <i class="far fa-heart text-xl"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Plan 3 -->
-                    <div class="flex-shrink-0 w-64 bg-white rounded-xl shadow-md overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="北海道旅行" 
-                             class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">北海道一周ドライブ</h3>
-                            <p class="text-sm text-gray-600 mb-3">7日間で巡る北海道の絶景スポット。</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" 
-                                         alt="ユーザーアイコン" 
-                                         class="w-8 h-8 rounded-full mr-2">
-                                    <span class="text-sm">あやか</span>
-                                </div>
-                                <button class="text-primary hover:text-red-500 transition" onclick="likePlan(this)">
-                                    <i class="far fa-heart text-xl"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Plan 4 -->
-                    <div class="flex-shrink-0 w-64 bg-white rounded-xl shadow-md overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1527631746610-bca00ab04064?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" 
-                             alt="東京旅行" 
-                             class="w-full h-40 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">東京下町散策</h3>
-                            <p class="text-sm text-gray-600 mb-3">浅草・谷根千を巡る1日プラン。</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" 
-                                         alt="ユーザーアイコン" 
-                                         class="w-8 h-8 rounded-full mr-2">
-                                    <span class="text-sm">ひろし</span>
-                                </div>
-                                <button class="text-primary hover:text-red-500 transition" onclick="likePlan(this)">
-                                    <i class="far fa-heart text-xl"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-10 slide-in">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">旅仲間とチャット</h3>
-                    <div class="bg-white p-6 rounded-xl shadow-md">
-                        <div class="chat-bubble">
-                            <div class="flex items-center mb-1">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" 
-                                     alt="ユーザーアイコン" 
-                                     class="w-6 h-6 rounded-full mr-2">
-                                <span class="font-bold text-sm">ゆきこ</span>
-                            </div>
-                            <p class="text-sm">このプラン、金閣寺の後に龍安寺に行くのがおすすめです！</p>
-                        </div>
-                        
-                        <div class="chat-bubble ml-auto bg-primary bg-opacity-10" style="max-width: 70%;">
-                            <div class="flex items-center mb-1">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" 
-                                     alt="ユーザーアイコン" 
-                                     class="w-6 h-6 rounded-full mr-2">
-                                <span class="font-bold text-sm">たけし</span>
-                            </div>
-                            <p class="text-sm">ありがとうございます！確かに順路的に良いですね。</p>
-                        </div>
-                        
-                        <div class="mt-4 flex">
-                            <input type="text" placeholder="メッセージを入力..." class="flex-grow border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                            <button class="bg-primary text-white px-4 py-2 rounded-r-lg">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">フォローして最新情報をゲット</h3>
-                    <p class="mb-6">気になる旅行者のプランをフォローすると、新しいプランが投稿された時に通知が届きます。旅のインスピレーションを得るのに最適です。</p>
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex items-center bg-white p-3 rounded-lg shadow-sm">
-                            <img src="https://randomuser.me/api/portraits/women/12.jpg" 
-                                 alt="ユーザーアイコン" 
-                                 class="w-10 h-10 rounded-full mr-3">
-                            <div>
-                                <p class="font-bold">まりこ</p>
-                                <p class="text-xs text-gray-500">国内旅行専門</p>
-                            </div>
-                            <button class="ml-auto bg-primary text-white px-3 py-1 rounded-full text-sm">フォロー</button>
-                        </div>
-                        
-                        <div class="flex items-center bg-white p-3 rounded-lg shadow-sm">
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" 
-                                 alt="ユーザーアイコン" 
-                                 class="w-10 h-10 rounded-full mr-3">
-                            <div>
-                                <p class="font-bold">けんじ</p>
-                                <p class="text-xs text-gray-500">海外旅行マニア</p>
-                            </div>
-                            <button class="ml-auto bg-primary text-white px-3 py-1 rounded-full text-sm">フォロー</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Future Updates -->
-    <section class="py-20 parallax" style="background-image: url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
-        <div class="container mx-auto px-6">
-            <div class="bg-white bg-opacity-90 p-8 md:p-12 rounded-xl shadow-lg max-w-3xl mx-auto slide-in">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">今後追加予定の機能</h2>
-                
-                <div class="space-y-6">
-                    <div class="flex items-start">
-                        <div class="bg-primary bg-opacity-20 p-2 rounded-full mr-4 mt-1">
-                            <i class="fas fa-hotel text-lg" style="color: var(--primary);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-1">宿泊施設連携</h3>
-                            <p class="text-gray-600">Booking.com・楽天トラベル等と連携し、旅程に直接宿泊施設を予約できるようにします。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="bg-secondary bg-opacity-20 p-2 rounded-full mr-4 mt-1">
-                            <i class="fas fa-robot text-lg" style="color: var(--secondary);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-1">AIおすすめ機能</h3>
-                            <p class="text-gray-600">過去の旅行履歴や好みを分析し、あなたにぴったりの旅行プランをAIが提案します。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="bg-primary bg-opacity-20 p-2 rounded-full mr-4 mt-1">
-                            <i class="fas fa-wifi text-lg" style="color: var(--primary);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-1">オフライン対応</h3>
-                            <p class="text-gray-600">海外など通信環境が不安定な場所でも、事前にダウンロードしたデータをオフラインで利用可能にします。</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-10 bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-bold mb-2">機能リクエスト受付中！</h3>
-                    <p class="text-sm text-gray-600 mb-3">あなたが欲しい機能を教えてください。開発の参考にさせていただきます。</p>
-                    <div class="flex">
-                        <input type="text" placeholder="こんな機能が欲しい！" class="flex-grow border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                        <button class="bg-primary text-white px-4 py-2 rounded-r-lg">
-                            送信
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section id="download" class="py-20 relative overflow-hidden">
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2094&q=80" 
-                 alt="世界地図" 
-                 class="w-full h-full object-cover rotate-world opacity-20">
+<body>
+    <div class="container">
+        <div class="logo">🧳</div>
+        
+        <h1>旅ばなで招待されました！</h1>
+        
+        <div class="description">
+            友達があなたを旅行プランに招待しています。<br>
+            下のボタンをタップして参加しましょう。
         </div>
         
-        <div class="container mx-auto px-6 relative">
-            <div class="text-center mb-16 slide-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">今すぐ旅ばなをダウンロード</h2>
-                <p class="text-xl max-w-2xl mx-auto">旅の計画から記録、共有まで。すべてがこの1本で完結します。</p>
-            </div>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 slide-in">
-                <a href="#" class="download-btn" onclick="animateDownload(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
-                         alt="App Storeでダウンロード" 
-                         class="h-16">
-                </a>
-                
-                <a href="#" class="download-btn" onclick="animateDownload(this)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
-                         alt="Google Playでダウンロード" 
-                         class="h-16">
-                </a>
-            </div>
-            
-            <div class="mt-16 grid md:grid-cols-3 gap-8 slide-in">
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <i class="fas fa-user-plus text-4xl mb-4" style="color: var(--primary);"></i>
-                    <h3 class="text-xl font-bold mb-2">30秒で登録完了</h3>
-                    <p class="text-gray-600">メールアドレスかSNSアカウントで簡単登録。すぐに使い始められます。</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <i class="fas fa-smile text-4xl mb-4" style="color: var(--secondary);"></i>
-                    <h3 class="text-xl font-bold mb-2">無料で利用可能</h3>
-                    <p class="text-gray-600">基本機能はすべて無料。プレミアムプランも用意しています。</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <i class="fas fa-sync-alt text-4xl mb-4" style="color: var(--primary);"></i>
-                    <h3 class="text-xl font-bold mb-2">マルチデバイス同期</h3>
-                    <p class="text-gray-600">スマホとタブレットでデータを同期。どこからでもアクセス可能。</p>
-                </div>
-            </div>
+        <div class="warning">
+            ⚠️ LINEからアクセスしている場合は、右上の「︙」メニューから「ブラウザで開く」を選択してください
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-map-marked-alt text-3xl mr-2" style="color: var(--primary);"></i>
-                        <span class="text-2xl font-bold">旅ばな</span>
-                    </div>
-                    <p class="text-gray-400">旅の計画・記録・共有をこれ1本で。</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">メニュー</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition">特長</a></li>
-                        <li><a href="#functions" class="text-gray-400 hover:text-white transition">機能</a></li>
-                        <li><a href="#community" class="text-gray-400 hover:text-white transition">コミュニティ</a></li>
-                        <li><a href="#download" class="text-gray-400 hover:text-white transition">ダウンロード</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">サポート</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">ヘルプセンター</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">利用規約</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">プライバシーポリシー</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">お問い合わせ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">SNSでフォロー</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-instagram text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-youtube text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        
+        <a href="#" id="openAppButton" class="button-primary">
+            旅ばなアプリで開く
+        </a>
+        
+        <div class="divider">または</div>
+        
+        <div class="app-stores">
+            <p style="font-size: 14px; color: #666; margin-bottom: 15px;">
+                アプリをまだインストールしていない場合
+            </p>
             
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                <p>© 2023 旅ばな All rights reserved.</p>
-            </div>
+            <a href="https://play.google.com/store/apps/details?id=com.jp.tabibana" 
+               class="store-button"
+               target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                     alt="Google Play で手に入れよう">
+            </a>
+            
+            <a href="https://apps.apple.com/app/idYOUR_APP_ID" 
+               class="store-button"
+               target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
+                     alt="App Store でダウンロード">
+            </a>
         </div>
-    </footer>
-
+    </div>
+    
     <script>
-        // スクロール時に要素を表示するアニメーション
-        document.addEventListener('DOMContentLoaded', function() {
-            const slideInElements = document.querySelectorAll('.slide-in');
+        // URLパラメータからplanIdを取得
+        function getParameterByName(name) {
+            const url = window.location.href;
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        
+        // ディープリンクを生成
+        function generateDeepLink() {
+            const planId = getParameterByName('planId');
+            if (planId) {
+                return `tabibana://invite?planId=${planId}`;
+            }
+            return 'tabibana://';
+        }
+        
+        // ユーザーエージェントを判定
+        function getMobileOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
+            if (/android/i.test(userAgent)) {
+                return 'android';
+            }
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'ios';
+            }
+            
+            return 'other';
+        }
+        
+        // LINEアプリ内ブラウザかどうかを判定
+        function isLineInAppBrowser() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return /Line/i.test(userAgent);
+        }
+        
+        // ページ読み込み時の処理
+        window.onload = function() {
+            const openAppButton = document.getElementById('openAppButton');
+            const deepLink = generateDeepLink();
+            
+            openAppButton.href = deepLink;
+            
+            // LINEアプリ内ブラウザでない場合、自動的にディープリンクを開く試行
+            if (!isLineInAppBrowser()) {
+                setTimeout(() => {
+                    window.location.href = deepLink;
+                }, 1000);
+                
+                // 3秒後にストアへのフォールバック
+                setTimeout(() => {
+                    const os = getMobileOS();
+                    if (os === 'android') {
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.jp.tabibana';
+                    } else if (os === 'ios') {
+                        window.location.href = 'https://apps.apple.com/app/idYOUR_APP_ID';
                     }
-                });
-            }, {
-                threshold: 0.1
+                }, 3000);
+            }
+            
+            // ボタンクリック時の処理
+            openAppButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (isLineInAppBrowser()) {
+                    // LINEアプリ内ブラウザの場合は警告を表示
+                    alert('LINEアプリから開いている場合は、右上の「︙」メニューから「ブラウザで開く」を選択してください。');
+                } else {
+                    window.location.href = deepLink;
+                    
+                    // フォールバック
+                    setTimeout(() => {
+                        const os = getMobileOS();
+                        if (os === 'android') {
+                            window.location.href = 'https://play.google.com/store/apps/details?id=com.jp.tabibana';
+                        } else if (os === 'ios') {
+                            window.location.href = 'https://apps.apple.com/app/idYOUR_APP_ID';
+                        }
+                    }, 2000);
+                }
             });
-            
-            slideInElements.forEach(element => {
-                observer.observe(element);
-            });
-        });
-        
-        // プランの「いいね」機能
-        function likePlan(button) {
-            const icon = button.querySelector('i');
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-            icon.classList.add('pop');
-            
-            // アニメーション終了後にクラスを削除
-            setTimeout(() => {
-                icon.classList.remove('pop');
-            }, 500);
-        }
-        
-        // ダウンロードボタンのアニメーション
-        function animateDownload(link) {
-            link.classList.add('animate-ping');
-            
-            setTimeout(() => {
-                link.classList.remove('animate-ping');
-            }, 1000);
-        }
-        
-        // モバイルメニューのトグル
-        document.querySelector('nav button').addEventListener('click', function() {
-            const menu = document.querySelector('.hidden.md\\:flex');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-            menu.classList.toggle('flex-col');
-            menu.classList.toggle('absolute');
-            menu.classList.toggle('top-16');
-            menu.classList.toggle('left-0');
-            menu.classList.toggle('w-full');
-            menu.classList.toggle('bg-white');
-            menu.classList.toggle('p-4');
-            menu.classList.toggle('shadow-md');
-        });
+        };
     </script>
 </body>
-</html>
+</html> 
